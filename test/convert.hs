@@ -4,8 +4,8 @@ import Convert
 
 full = TestCase (
   do
-    input <- readFile "input.json"
-    output <- readFile "output.json"
+    input <- readFile "1/input.json"
+    output <- readFile "1/output.json"
     assertEqual (convert input) output
   )
 
