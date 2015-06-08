@@ -1,7 +1,7 @@
 
 Given *n* samples, taken at *n* equal intervals over time, it computes
 at any interval as many averages as the points collected to that
-moment. Thus at the end, there are be as many averages as the sum of
+moment. Thus at the end, there will be as many averages as the sum of
 numbers from *1* to *n*.
 
 Every average is visually encoded as follows:
