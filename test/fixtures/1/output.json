@@ -1,17 +1,17 @@
 [{
-  time: "2013-05-29",
+  date: "2013-05-29",
   collection: [{
     size: 1, value: 6
   }]
 }, {
-  time: "2013-05-30",
+  date: "2013-05-30",
   collection: [{
     size: 1, value: 6
   }, {
     size: 2, value: 3
   }]
 }, {
-  time: "2013-05-31"
+  date: "2013-05-31",
   collection: [{
     size: 1, value: 6
   }, {
