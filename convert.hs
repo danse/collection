@@ -5,16 +5,20 @@ data Margin = Margin {
   description :: String
 }
 
-data Collection = Collection {
-  date :: Date,
-  collection ::   
+data Average = Average {
+  size :: Int,
+  value :: Float
 }
 
-type Margins = [Margin]
+data Analysis = Analysis {
+  date :: Date,
+  averages :: [Average]
+}
 
-type Collections = [Collection]
+analyse :: [Margin
 
-collect :: Margins -> Collections
+collect :: [Margin] -> [Analysis]
+collect = 
 
 combine :: Margin -> Margin -> Margin
 

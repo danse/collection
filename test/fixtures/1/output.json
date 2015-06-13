@@ -1,18 +1,18 @@
 [{
   date: "2013-05-29",
-  collection: [{
+  averages: [{
     size: 1, value: 6
   }]
 }, {
   date: "2013-05-30",
-  collection: [{
+  averages: [{
     size: 1, value: 6
   }, {
     size: 2, value: 3
   }]
 }, {
   date: "2013-05-31",
-  collection: [{
+  averages: [{
     size: 1, value: 6
   }, {
     size: 2, value: 3
