@@ -34,7 +34,7 @@
 'use strict';
 
 var margin = {top: 40, right: 40, bottom: 40, left: 160},
-    width = 2000 - margin.left - margin.right,
+    width = 1600 - margin.left - margin.right,
     height = 800 - margin.top - margin.bottom;
 
 var x = d3.scale.linear()
@@ -43,8 +43,10 @@ var r = d3.scale.log()
     .range([1, 12]);
 var o = d3.scale.log()
     .range([1, 0]);
-var c = d3.scale.log()
+var hue = d3.scale.log()
     .range([0, 240]);
+var luminosity = d3.scale.log()
+    .range([1, 0]);
 var y = d3.scale.linear()
     .range([0, height]);
 
@@ -72,10 +74,15 @@ d3.json('converted.json', function(data){
   var flattened = data.reduce(function(prev, curr) {
     return prev.concat(curr.averages);
   }, []);
-  //x.domain(d3.extent(flattened, getValue));
-  x.domain([0, 200]);
+  var autoScaleX = false;
+  if (autoScaleX) {
+    x.domain(d3.extent(flattened, getValue));
+  } else {
+    x.domain([-200, 0]);
+  }
   r.domain(d3.extent(flattened, getSize));
-  c.domain(d3.extent(flattened, getSize));
+  hue.domain(d3.extent(flattened, getSize));
+  luminosity.domain(d3.extent(flattened, getSize));
   o.domain(d3.extent(flattened, getSize));
   y.domain(d3.extent(data, getDate));
 
@@ -125,8 +132,13 @@ d3.json('converted.json', function(data){
       return r(getSize(a));
     })
     .attr("style", function(a) {
-      var opa = o(getSize(a)),
-          col = d3.hsl(c(getSize(a)), 1, 0.5);
+      var opa = o(getSize(a));
+      var useLuminosity = true;
+      if (useLuminosity) {
+        var col = d3.hsl(220, 1, luminosity(getSize(a)));
+      } else {
+        var col = d3.hsl(hue(getSize(a)), 1, 0.5);
+      }
       return "opacity: "+opa+"; fill: "+col+";";
     });
   
