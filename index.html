@@ -42,7 +42,7 @@ var x = d3.scale.linear()
 var r = d3.scale.log()
     .range([1, 12]);
 var o = d3.scale.log()
-    .range([1, 0]);
+    .range([0.07, 0]);
 var hue = d3.scale.log()
     .range([0, 240]);
 var luminosity = d3.scale.log()
@@ -78,7 +78,7 @@ d3.json('converted.json', function(data){
   if (autoScaleX) {
     x.domain(d3.extent(flattened, getValue));
   } else {
-    x.domain([-200, 0]);
+    x.domain([-200, 200]);
   }
   r.domain(d3.extent(flattened, getSize));
   hue.domain(d3.extent(flattened, getSize));
