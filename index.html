@@ -60,7 +60,6 @@ var yAxis = d3.svg.axis()
     .tickFormat(function(d) { return (new Date(d)).toISOString(); });
 
 d3.json('converted.json', function(data){
-  data = data['Right'];
 
   function pluck(key) {
     return function(d) {
