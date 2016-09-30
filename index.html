@@ -48,16 +48,16 @@ var hue = d3.scale.log()
 var luminosity = d3.scale.log()
     .range([1, 0]);
 var y = d3.scale.linear()
-    .range([0, height]);
+    .range([height, 0]);
 
 var xAxis = d3.svg.axis()
     .scale(x)
-    .orient("bottom");
+    .orient("bottom")
+    .tickFormat(function(d) { return (new Date(d)).toISOString(); });
 
 var yAxis = d3.svg.axis()
     .scale(y)
-    .orient("left")
-    .tickFormat(function(d) { return (new Date(d)).toISOString(); });
+    .orient("left");
 
 d3.json('converted.json', function(data){
 
@@ -73,17 +73,17 @@ d3.json('converted.json', function(data){
   var flattened = data.reduce(function(prev, curr) {
     return prev.concat(curr.averages);
   }, []);
-  var autoScaleX = false;
-  if (autoScaleX) {
-    x.domain(d3.extent(flattened, getValue));
+  var autoScaleY = false;
+  if (autoScaleY) {
+    y.domain(d3.extent(flattened, getValue));
   } else {
-    x.domain([-200, 200]);
+    y.domain([-250, 0]);
   }
   r.domain(d3.extent(flattened, getSize));
   hue.domain(d3.extent(flattened, getSize));
   luminosity.domain(d3.extent(flattened, getSize));
   o.domain(d3.extent(flattened, getSize));
-  y.domain(d3.extent(data, getDate));
+  x.domain(d3.extent(data, getDate));
 
   var svg = d3.select("body").append("svg")
       .attr("width", width + margin.left + margin.right)
@@ -94,24 +94,24 @@ d3.json('converted.json', function(data){
   svg.append("g")
     .attr("class", "x axis")
     .attr("transform", "translate(0," + height + ")")
-    .call(xAxis);
-
-  svg.append("g")
-    .attr("class", "y axis")
-    .call(yAxis)
+    .call(xAxis)
     .append("text")
     .attr("transform", "rotate(-90)")
     .attr("y", 6)
     .attr("dy", ".71em")
     .style("text-anchor", "end")
-    .text("Date");
+    .text("Date")
+
+  svg.append("g")
+    .attr("class", "y axis")
+    .call(yAxis);
 
   var collection = svg.selectAll("g.collection")
       .data(data)
       .enter().append("g")
       .attr("class", "collection")
       .attr("transform", function(d) {
-        return "translate(0, "+y(getDate(d))+")";
+        return "translate("+x(getDate(d))+", 0)";
       });
 
   collection
@@ -123,10 +123,10 @@ d3.json('converted.json', function(data){
     })
     .enter().append("circle")
     .attr("class", "average")
-    .attr("cx", function(a) {
-      return x(getValue(a));
+    .attr("cy", function(a) {
+      return y(getValue(a));
     })
-    .attr("cy", "0")
+    .attr("cx", "0")
     .attr("r", function(a) {
       return r(getSize(a));
     })
