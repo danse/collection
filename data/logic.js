@@ -1,36 +1,3 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<style>
-
-.average {
-  fill: steelblue;
-  opacity: 0.3;
-}
-
-.average:hover {
-  fill: brown;
-}
-
-.axis {
-  font: 10px sans-serif;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.x.axis path {
-  display: none;
-}
-
-</style>
-<body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
-<script>
 'use strict';
 
 var margin = {top: 40, right: 40, bottom: 40, left: 160},
@@ -59,7 +26,7 @@ var yAxis = d3.svg.axis()
     .scale(y)
     .orient("left");
 
-d3.json('converted.json', function(data){
+function vishnje (data) {
 
   function pluck(key) {
     return function(d) {
@@ -73,7 +40,7 @@ d3.json('converted.json', function(data){
   var flattened = data.reduce(function(prev, curr) {
     return prev.concat(curr.averages);
   }, []);
-  var autoScaleY = false;
+  var autoScaleY = true;
   if (autoScaleY) {
     y.domain(d3.extent(flattened, getValue));
   } else {
@@ -85,7 +52,7 @@ d3.json('converted.json', function(data){
   o.domain(d3.extent(flattened, getSize));
   x.domain(d3.extent(data, getDate));
 
-  var svg = d3.select("body").append("svg")
+  var svg = d3.select("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
@@ -141,6 +108,4 @@ d3.json('converted.json', function(data){
       return "opacity: "+opa+"; fill: "+col+";";
     });
   
-})
-</script>
-</body>
+}
