@@ -26,7 +26,7 @@ var yAxis = d3.svg.axis()
     .scale(y)
     .orient("left");
 
-function vishnje (data) {
+function visie (data) {
 
   function pluck(key) {
     return function(d) {

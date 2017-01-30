@@ -1,9 +1,9 @@
 {-# LANGUAGE DeriveDataTypeable,DeriveGeneric #-}
 module CollectionGraph where
 
-import Vishnje
-import Vishnje.ToTimeSeries
-import Vishnje.Data
+import Visie
+import Visie.ToTimeSeries
+import Visie.Data
 import Data.DateTime (DateTime, getCurrentTime)
 import Data.Time.Clock (NominalDiffTime)
 import Data.Aeson (encode, eitherDecode, FromJSON, ToJSON)
@@ -65,4 +65,4 @@ options = defaultOptions { d3Version = Version3 }
 
 collectionGraph days d = do
   curr <- getCurrentTime
-  customVishnjeFiles options getDataFileName (transform days curr) d
+  customVisie options getDataFileName (transform days curr) d

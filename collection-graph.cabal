@@ -2,7 +2,7 @@
 -- documentation, see http://haskell.org/cabal/users-guide/
 
 name:                collection-graph
-version:             0.1.0.0
+version:             0.1.1.0
 synopsis:            an experimental visualisation
 -- description:         
 homepage:            https://github.com/danse/collection
@@ -17,14 +17,14 @@ extra-source-files:  README.md
 cabal-version:       >=1.10
 
 data-files: data/style.css,
-            data/logic.js
+            data/script.js
 
 library
   exposed-modules:     CollectionGraph
   other-modules:       Paths_collection_graph
   -- other-extensions:    
   build-depends:       base >=4.8 && <4.9,
-                       vishnje,
+                       visie,
                        aeson,
                        time,
                        datetime,
@@ -36,7 +36,7 @@ library
 executable collection-browser-test
            main-is: collection-browser-test.hs
            build-depends: base,
-                          vishnje,
+                          visie,
                           aeson,
                           time,
                           text,
