@@ -14,7 +14,7 @@ var hue = d3.scale.log()
     .range([0, 240]);
 var luminosity = d3.scale.log()
     .range([1, 0]);
-var y = d3.scale.linear()
+var y = d3.scale.sqrt()
     .range([height, 0]);
 
 var xAxis = d3.svg.axis()

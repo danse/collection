@@ -2,7 +2,7 @@
 -- documentation, see http://haskell.org/cabal/users-guide/
 
 name:                collection-graph
-version:             0.1.1.0
+version:             0.1.2.0
 synopsis:            an experimental visualisation
 -- description:         
 homepage:            https://github.com/danse/collection
