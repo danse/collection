@@ -1,8 +1,8 @@
 'use strict';
 
-var margin = {top: 40, right: 40, bottom: 40, left: 160},
-    width = 1600 - margin.left - margin.right,
-    height = 800 - margin.top - margin.bottom;
+var margin = {top: 20, right: 40, bottom: 30, left: 40},
+    width = document.documentElement.clientWidth - margin.left - margin.right,
+    height = document.documentElement.clientHeight - margin.top - margin.bottom;
 
 var x = d3.scale.linear()
     .range([0, width]);
