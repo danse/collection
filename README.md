@@ -1,4 +1,6 @@
 
+![A collection visualisation example](collection.png)
+
 Given *n* samples, taken at *n* equal intervals over time, it computes
 at any interval as many averages as the points collected to that
 moment. Thus at the end, there will be as many averages as the sum of

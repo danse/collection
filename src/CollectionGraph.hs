@@ -2,10 +2,10 @@
 module CollectionGraph where
 
 import Visie
-import Visie.ToTimeSeries
+import Visie.ToTimeSeries (convert, Timestamped(..))
 import Visie.Data
 import Data.DateTime (DateTime, getCurrentTime)
-import Data.Time.Clock (NominalDiffTime)
+import Data.Time.Clock (NominalDiffTime, UTCTime)
 import Data.Aeson (encode, eitherDecode, FromJSON, ToJSON)
 import Data.Functor (fmap)
 import Data.Typeable
@@ -15,6 +15,7 @@ import Data.ByteString.Lazy (ByteString, toStrict)
 import Data.Either (rights, Either(Right))
 import Paths_collection_graph (getDataFileName)
 import Data.Text.Encoding (decodeUtf8)
+import Data.Text (Text)
 
 data Average = Average {
   size :: Int,
@@ -53,16 +54,21 @@ collect :: [Timestamped TextFloat] -> [Analysis]
 collect [] = []
 collect points = ((collect . tail) points) ++ [analyse points]
 
-
-oneDay = 60 * 60 * 24 :: NominalDiffTime
-
 analyseAll :: Int -> [Timestamped TextFloat] -> [Analysis]
 analyseAll days = collect . reverse . convert (fromIntegral days * oneDay)
+  where oneDay = 60 * 60 * 24 :: NominalDiffTime
 
-transform days curr = decodeUtf8 . toStrict . encode . analyseAll days . (Timestamped mempty curr:) . map toTimestampedTextFloat
+transform :: Int -> Bool -> UTCTime -> [(Text, Float, UTCTime)] -> Text
+transform days fill curr = decodeUtf8
+                      . toStrict
+                      . encode
+                      . analyseAll days
+                      . (if fill then (Timestamped mempty curr:) else id)
+                      . map toTimestampedTextFloat
 
 options = defaultOptions { d3Version = Version3 }
 
-collectionGraph days d = do
+collectionGraph :: Int -> Bool -> [(Text, Float, UTCTime)] -> IO ()
+collectionGraph days fill d = do
   curr <- getCurrentTime
-  customVisie options getDataFileName (transform days curr) d
+  customVisie options getDataFileName (transform days fill curr) d
