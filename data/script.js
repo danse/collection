@@ -20,7 +20,7 @@ var y = d3.scale.sqrt()
 var xAxis = d3.svg.axis()
     .scale(x)
     .orient("bottom")
-    .tickFormat(function(d) { return (new Date(d)).toISOString(); });
+    .tickFormat(function(d) { return (new Date(d)).toLocaleDateString(); });
 
 var yAxis = d3.svg.axis()
     .scale(y)
