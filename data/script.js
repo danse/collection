@@ -24,7 +24,7 @@ var xAxis = d3.svg.axis()
 
 var yAxis = d3.svg.axis()
     .scale(y)
-    .orient("left");
+    .orient("right");
 
 function visie (data) {
 
@@ -71,6 +71,7 @@ function visie (data) {
 
   svg.append("g")
     .attr("class", "y axis")
+    .attr("transform", "translate(" + width + ", 0)")
     .call(yAxis);
 
   var collection = svg.selectAll("g.collection")
