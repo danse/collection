@@ -27,7 +27,6 @@ library
                        visie,
                        aeson,
                        time,
-                       datetime,
                        bytestring,
                        text
   hs-source-dirs:      src

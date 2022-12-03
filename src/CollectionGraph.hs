@@ -4,8 +4,7 @@ module CollectionGraph where
 import Visie
 import Visie.ToTimeSeries (convert, Timestamped(..))
 import Visie.Data
-import Data.DateTime (DateTime, getCurrentTime)
-import Data.Time.Clock (NominalDiffTime, UTCTime)
+import Data.Time.Clock (NominalDiffTime, UTCTime, getCurrentTime)
 import Data.Aeson (encode, eitherDecode, FromJSON, ToJSON)
 import Data.Functor (fmap)
 import Data.Typeable
@@ -26,7 +25,7 @@ instance FromJSON Average
 instance ToJSON Average
 
 data Analysis = Analysis {
-  date :: DateTime,
+  date :: UTCTime,
   averages :: [Average]
 } deriving (Show, Typeable, Data, Generic, Eq)
 
